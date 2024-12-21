@@ -10,7 +10,7 @@ export default {
     mode: "development", // Set the mode here as part of the configuration object
     entry: "./src/client/index.js",
     output: {
-        path: resolve(__dirname, "dist"), // Use the recreated __dirname
+        path: resolve(__dirname, "dist"), 
         filename: "bundle.js",
     },
     module: {
