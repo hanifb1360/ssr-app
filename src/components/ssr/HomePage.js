@@ -1,5 +1,5 @@
 import { BaseComponent } from "ssr-library";
-import Button from "./Button.js";
+import Button from "../shared/Button.js";
 
 class HomePage extends BaseComponent {
   render() {
