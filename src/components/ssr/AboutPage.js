@@ -1,16 +1,11 @@
 import { BaseComponent } from "ssr-library";
-import Header from "./Header.js";
-import Footer from "./Footer.js";
 
 class AboutPage extends BaseComponent {
   render() {
-    // Create reusable header and footer
-    const header = new Header({ title: "About Us" });
-    const footer = new Footer();
-
+ 
     // Main about content
     return `
-      ${header.render()}
+     
       <section>
         <h2>About Our Project</h2>
         <p>
@@ -23,7 +18,7 @@ class AboutPage extends BaseComponent {
           components with caching, templating, and virtual DOM optimizations.
         </p>
       </section>
-      ${footer.render()}
+     
     `;
   }
 }
