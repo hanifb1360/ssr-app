@@ -1,15 +1,13 @@
 import path from "path";
 import express from "express";
 import AboutPage from "../components/ssr/AboutPage.js";
-import { renderToHTMLPage } from "../utils/renderToHTML.js";
+import { handleSSR } from "../utils/ssrHelpers.js";
 
 const router = express.Router();
 
-// SSR route for the About page
-router.get("/about", (_, res) => {
-  const aboutPage = new AboutPage();
-  const htmlContent = aboutPage.render(); // Only the inner HTML
-  res.send(htmlContent);
+// Route for the About page
+router.get("/about", (req, res) => {
+  handleSSR(AboutPage, {}, res);
 });
 
 // Default route to handle CSR pages
