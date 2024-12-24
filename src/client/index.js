@@ -1,8 +1,9 @@
+import "../styles/global.css";
 import React, { useState, useEffect } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Counter from "../components/csr/Counter.js";
-import HybridLink from "../components/csr/HybridLink.js";
+import Navbar from "../components/csr/navbar/Navbar.js";
 
 const SSRContent = ({ url }) => {
   const [content, setContent] = useState("Loading SSR Content...");
@@ -21,12 +22,7 @@ const SSRContent = ({ url }) => {
 const App = () => {
   return (
     <BrowserRouter>
-      <nav>
-        <HybridLink to="/about" ssr={true}>
-          About (SSR)
-        </HybridLink>{" "}
-        | <HybridLink to="/csr-counter">Counter (CSR)</HybridLink>
-      </nav>
+      <Navbar />
       <Routes>
         {/* Define CSR routes */}
         <Route path="/csr-counter" element={<Counter initialCount={0} />} />

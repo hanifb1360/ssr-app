@@ -6,11 +6,13 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+console.log(resolve(__dirname, "src/design-system"));
+
 export default {
-    mode: "development", // Set the mode here as part of the configuration object
+    mode: "development", // Set the mode (development or production)
     entry: "./src/client/index.js",
     output: {
-        path: resolve(__dirname, "dist"), 
+        path: resolve(__dirname, "dist"),
         filename: "bundle.js",
     },
     module: {
@@ -23,21 +25,37 @@ export default {
                 },
             },
             {
-                test: /\.css$/, // If you have CSS files
-                use: ["style-loader", "css-loader"],
+                test: /\.css$/, // Match CSS files
+                use: [
+                    "style-loader", // Inject CSS into the DOM
+                    {
+                        loader: "css-loader", // Resolve CSS imports
+                        options: {
+                            importLoaders: 1, // Ensure `@import` statements are processed
+                            modules: false, // Disable CSS Modules (set true if needed)
+                        },
+                    },
+                ],
             },
         ],
     },
     devServer: {
-        static: resolve(__dirname, "dist"), // Serve from the correct dist folder
-        port: 3001,
+        static: resolve(__dirname, "dist"), // Serve files from the dist folder
+        port: 3001, // Set development server port
         open: true, // Automatically opens the browser
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./src/index.html", // Use this if you have a custom template
-            filename: "index.html", // The output file
-            inject: "body", // Inject the scripts into the <body>
+            template: "./src/index.html", // Custom HTML template
+            filename: "index.html", // Output HTML file
+            inject: "body", // Inject JavaScript into the <body>
         }),
     ],
+    resolve: {
+        alias: {
+            "design-system": resolve(__dirname, "src/design-system"), // Alias for design-system
+        },
+        extensions: [".js", ".jsx", ".json"], // Automatically resolve these extensions
+        mainFiles: ["index"], // Default to index.js for directory imports
+    },
 };
